@@ -1,0 +1,1296 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2021-06-22 Tue 10:54 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Literate API Development</title>
+<meta name="author" content="Kyle S Passarelli" />
+<meta name="generator" content="Org Mode" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css" href="https://fniessen.github.io/org-html-themes/src/readtheorg_theme/css/htmlize.css"/>
+<link rel="stylesheet" type="text/css" href="https://fniessen.github.io/org-html-themes/src/readtheorg_theme/css/readtheorg.css"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://fniessen.github.io/org-html-themes/src/lib/js/jquery.stickytableheaders.min.js"></script>
+<script type="text/javascript" src="https://fniessen.github.io/org-html-themes/src/readtheorg_theme/js/readtheorg.js"></script>
+<script type="text/javascript">
+// @license magnet:?xt=urn:btih:e95b018ef3580986a04669f1b5879592219e2a7a&dn=public-domain.txt Public Domain
+<!--/*--><![CDATA[/*><!--*/
+     function CodeHighlightOn(elem, id)
+     {
+       var target = document.getElementById(id);
+       if(null != target) {
+         elem.classList.add("code-highlighted");
+         target.classList.add("code-highlighted");
+       }
+     }
+     function CodeHighlightOff(elem, id)
+     {
+       var target = document.getElementById(id);
+       if(null != target) {
+         elem.classList.remove("code-highlighted");
+         target.classList.remove("code-highlighted");
+       }
+     }
+    /*]]>*///-->
+// @license-end
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Literate API Development</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org55a80f9">1. cURL: the c is for crying</a></li>
+<li><a href="#org973c861">2. Org-mode</a></li>
+<li><a href="#org53d73b5">3. Restclient</a></li>
+<li><a href="#org07588c9">4. Caching&#xa0;&#xa0;&#xa0;<span class="tag"><span class="ATTACH">ATTACH</span></span></a>
+<ul>
+<li><a href="#org27c72ce">4.1. Org mode hackery</a></li>
+</ul>
+</li>
+<li><a href="#orgf98d644">5. Multi-step forms</a></li>
+<li><a href="#org92c87dd">6. Export</a></li>
+<li><a href="#org3d637d6">7. Next steps</a></li>
+<li><a href="#org455f1f5">8. Conclusions</a></li>
+<li><a href="#org43ffb18">9. References</a></li>
+<li><a href="#org2dd7083">10. Notes</a>
+<ul>
+<li>
+<ul>
+<li><a href="#org022973b">10.0.1. Chomp function</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<p>
+There are a lot of fascinating REST APIs there.
+</p>
+<ul class="org-ul">
+<li>TODO: Name a few very weird and interesting APIs.)</li>
+</ul>
+
+<p>
+Combining APIs is a great way to build a product, and maybe even start a
+business. Want to connect your window blinds to the weather.com API? Sure. Want
+to do something else with some other thing? Go for it.
+</p>
+
+<p>
+Thanks to technologies like OAuth and OpenID Connect, it&rsquo;s easier than ever to
+turn that toy into a robust and secure product than ever and also to share the
+same client code.
+</p>
+
+<p>
+In a previous life, my team and I used to be really into Postman for the initial
+steps of writing applications. It was good for firing off a few requests and
+getting a feel for how an API worked. Over time, Postman collections found their
+way into VC repositories, zip files in shared drives, Slack&#x2026; kind of
+everywhere. We were happy customers.
+</p>
+
+<p>
+However, like many applications over the last few years, Postman went through a
+period of excitement over Electron and ballooned into a whopping 800+ MB
+mountain of Javascript. It would hang in mysterious ways like when selecting an
+environment, for up to 30 seconds at a time. (This probably had something to do
+with my team abusing it with a common account and dozens of environments, but
+still.) It felt like a flow destroying laptop warmer.
+</p>
+
+<p>
+So we went back to cURL. It&rsquo;s amazingly portable. It&rsquo;s usually a one-liner, so
+it&rsquo;s possible to copy &amp; paste a command and have it work. Postman exports cURL
+commands directly from the UI, we stored those in a file and shared the file.
+</p>
+
+<p>
+Things start to break in particular ways with cURL, though. Consider these
+contrived but common scenarios:
+</p>
+
+<ol class="org-ol">
+<li>Multi-step flows, where the response from one API goes into a second request.</li>
+<li>When you are POSTing large payloads to JSON APIs.</li>
+<li>When you, erm, have to remember what you&rsquo;ve done before.</li>
+</ol>
+
+<p>
+I&rsquo;ll share my current worklow based around Emacs Org mode and a package called
+Restclient. I&rsquo;m assuming you have little or no Emacs knowledge, and probably
+never heard of Org mode.
+</p>
+
+<p>
+It&rsquo;s happily replaced both Postman and cURL in the majority of scenarios. I hope
+to leave you with an idea about how it fits together as a simple effetive system
+for hacking away at APIs right in a text editor with minimal division between
+code and prose. You could call it &ldquo;literate API development&rdquo;.
+</p>
+
+<div id="outline-container-org55a80f9" class="outline-2">
+<h2 id="org55a80f9"><span class="section-number-2">1</span> cURL: the c is for crying</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+We mentioned OAuth earlier. To do anything useful with an OAuth API, you need to
+log on and then send a request:
+</p>
+
+<p>
+Step 1: Authenticate and get a bearer token.
+Step 2: Send that bearer token in a header and get a resource.
+</p>
+
+<p>
+This is how it might work in the terminal. First, you send a cURL command with
+a username and password,
+</p>
+
+<div class="org-src-container">
+<pre class="src src-shell"><span style="color: #ECBE7B;">curl</span> -u <span style="color: #98be65;">"someapplication:password"</span> <span style="color: #98be65;">\</span>
+    -X GET <span style="color: #98be65;">"http://httpbin.org/basic-auth/someapplication/password"</span> <span style="color: #98be65;">\</span>
+    -H <span style="color: #98be65;">"accept: application/json"</span>
+</pre>
+</div>
+
+<p>
+which returns a token
+</p>
+
+<div class="org-src-container">
+<pre class="src src-json">{
+    <span style="color: #51afef;">"token"</span> : "<span style="color: #da8548; font-weight: bold;">123</span>"
+}
+</pre>
+</div>
+
+<p>
+In the terminal, you copy this token and put it in a variable:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-shell"><span style="color: #dcaeea;">TOKEN</span>=<span style="color: #da8548; font-weight: bold;">123</span>
+</pre>
+</div>
+
+<p>
+Then you use the token in each authenticated call:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-shell"><span style="color: #ECBE7B;">curl</span> -i <span style="color: #98be65;">\</span>
+    -H <span style="color: #98be65;">"Authorization: Bearer </span><span style="color: #a9a1e1;">$</span><span style="color: #dcaeea;">TOKEN</span><span style="color: #98be65;">"</span> <span style="color: #98be65;">\</span>
+    -H <span style="color: #98be65;">"accept: application/json"</span> <span style="color: #98be65;">\</span>
+    -XGET https://httpbin.org/bearer
+</pre>
+</div>
+
+<p>
+<b><b>Does it work? yes</b></b>. It is still fairly easy to share, since everybody has a
+shell. You just have to send a few cURL commands. Except they&rsquo;re run in sequence
+and there&rsquo;s that env var in the middle, so maybe you share a shell script. (You
+should start getting a sinking feeling right about now, wondering how you get to
+be a professional programmer but are exchanging shell scripts.)
+</p>
+
+<p>
+Oh and how about this one: the most interesting requests are POST or PUT. You
+will likely end up with two little steps for every one of these calls:
+</p>
+
+<p>
+For the request body, you will want to create a small file called
+<code>request.json</code>. Then put your POST body in it:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-json">{
+    <span style="color: #51afef;">"jql"</span>: <span style="color: #98be65;">"project = HSP"</span>,
+    <span style="color: #51afef;">"startAt"</span>: <span style="color: #da8548; font-weight: bold;">0</span>,
+    <span style="color: #51afef;">"maxResults"</span>: <span style="color: #da8548; font-weight: bold;">15</span>,
+    <span style="color: #51afef;">"fields"</span>: [
+        <span style="color: #98be65;">"summary"</span>,
+        <span style="color: #98be65;">"status"</span>,
+        <span style="color: #98be65;">"assignee"</span>
+    ]
+}
+</pre>
+</div>
+
+<p>
+Second, youw will craft a cURL call to send that off as a request body with <code>@</code>:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-shell"><span style="color: #ECBE7B;">curl</span> -i -H <span style="color: #98be65;">"Content-Type: application/json"</span> -XPOST http://httpbin.org/post <span style="color: #98be65;">\</span>
+    -d <span style="color: #98be65;">"@request.json"</span>
+</pre>
+</div>
+
+<p>
+Now you may have three things to keep track of: a token, a small JSON
+snippet, and a command. Not so convenient now, is it?
+</p>
+
+<p>
+Both of these can be solved with Postman, which has scripting capabilities and
+sharing. Pretty soon you&rsquo;re gonna want to version your code, though; also your
+code is tied to a proprietary client.
+</p>
+
+<p>
+Now it&rsquo;s obvious we need to go even older than cURL. To Emacs and emacs lisp. An
+elegant weapon from a more civilized time.
+</p>
+
+<p>
+In this article, we will see how using Emacs + Jq as an embedded REST client
+lets you
+</p>
+<ul class="org-ul">
+<li>Play around with REST APIs</li>
+<li>Use Jq to explore the shape of data online and offline</li>
+<li>Export client code to use for further exploration.</li>
+</ul>
+
+<p>
+A couple of modifications allow you to log into APIs which give you a token, by
+storing this information directly in Emacs Org mode. In this way, your programming
+interface becomes your scripting. The scripting itself kind of dissolves into
+the document.
+</p>
+
+<p>
+Other alternatives exist. For VS Code, a similar alternative is X. I still use
+VS Code from time to time as a debugger. For simpler text processing, though, I
+prefer Emacs.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org973c861" class="outline-2">
+<h2 id="org973c861"><span class="section-number-2">2</span> Org-mode</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+Next to Donald Knuth, Dominic Carsten should go down in history as one of the
+greatest yak-shavers of all time. Starting as a note taker, Org mode is used for
+agendas and GTD systems, writing Ph.D theses, and publishing blogs like this
+one.
+</p>
+
+<p>
+Superficially, Org mode is an outline system alla Markdown:
+</p>
+
+<pre class="example" id="orgbb2a927">
+ * Heading 1
+ Blah blah
+ ** Heading 2
+ Bleh bleh
+</pre>
+
+<p>
+You have markup for font styles like bold and italic, formatted code snippets,
+and can export to HTML. So far a lot like Markdown.
+</p>
+
+<p>
+The differences start showing up editing code blocks. In Markdown, syntax for
+code blocks is fairly basic. Some Markdown additions exist which take it a lot
+futher, such as [a] and [b], but they have more limited use. A source code block
+looks like this:
+</p>
+
+<pre class="example" id="org78b147d">
+
+ #+begin_src {{language}}
+ {{code}}
+ #+end_src
+
+</pre>
+
+<p>
+It is one of the more viable solutions for doing literate programming, where
+code exists inside prose, rather than prose being inside the code as comments.
+</p>
+
+<p>
+Here&rsquo;s a short snippet that shows how it works:
+</p>
+<pre class="example" id="org79bcd4f">
+
+ #+NAME: hi
+ #+BEGIN_SRC sh
+ echo "hi"
+ #+END_SRC
+
+ #+BEGIN_SRC sh :stdin hi
+ cowsay
+ #+END_SRC
+
+</pre>
+
+<p>
+We have two source code blocks, and one is getting the otuput from the other.
+They are both running shell scripts. When we run them, we see this:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh" id="org20d669c"><span style="color: #ECBE7B;">echo</span> <span style="color: #98be65;">"hi"</span>
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-sh">cowsay
+</pre>
+</div>
+
+<pre class="example">
+ ____ 
+&lt; hi &gt;
+ ---- 
+        \   ^__^
+         \  (oo)\_______
+            (__)\       )\/\
+                ||----w |
+                ||     ||
+</pre>
+
+
+<p>
+So it&rsquo;s a little like Markdown, but it&rsquo;s also like Jupyter. I execute a &ldquo;cell&rdquo;
+by executing a source block with a keystroke, and that outputs a results section
+which is not meant to be edited by hand, since it&rsquo;s regenerated every time.
+</p>
+
+<p>
+There&rsquo;s a lot more to org-mode, but we have enough for the curious to start I
+hope.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org53d73b5" class="outline-2">
+<h2 id="org53d73b5"><span class="section-number-2">3</span> Restclient</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+The same cURL call that took 2 steps, in restclient [link] for Emacs, looks like this:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-restclient" id="org98040db"><span style="color: #51afef;">POST</span> <span style="color: #c678dd;">http://httpbin.org/post</span>
+<span style="color: #dcaeea;">Content-Type</span>: <span style="color: #98be65;">application/json</span>
+
+{
+    <span style="color: #98be65;">"jql"</span>: <span style="color: #98be65;">"project = HSP"</span>,
+    <span style="color: #98be65;">"startAt"</span>: 0,
+    <span style="color: #98be65;">"maxResults"</span>: 15,
+    <span style="color: #98be65;">"fields"</span>: [
+        <span style="color: #98be65;">"summary"</span>,
+        <span style="color: #98be65;">"status"</span>,
+        <span style="color: #98be65;">"assignee"</span>
+    ]
+}
+</pre>
+</div>
+
+<p>
+That&rsquo;s the first source code block. REST client uses a shortened description of
+the call that turns out to be an actual RFC [link]. In this printed version
+(which was just generated from the Emacs source) you won&rsquo;t see the header line
+demarcating the source block. It identifies the block as being of &ldquo;restclient&rdquo;
+type:
+</p>
+
+<pre class="example" id="org204ceb6">
+ #+begin_src restclient :results value
+ ...
+</pre>
+
+<p>
+Following the org example above, we will introduce a second code block, which
+reads the output of the first, and manipulates it: (Similar to where we had
+<code>cowsay</code> in the previous example.)
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">jq <span style="color: #98be65;">'.'</span>
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-json">{
+  <span style="color: #51afef;">"args"</span>: {},
+  <span style="color: #51afef;">"data"</span>: "{\n    \"jql\": \"project = HSP\",\n    \"startAt\": <span style="color: #da8548; font-weight: bold;">0</span>,\n    \"maxResults\": <span style="color: #da8548; font-weight: bold;">15</span>,\n    \"fields\": [\n        \"summary\",\n        \"status\",\n        \"assignee\"\n    ]\n}",
+  <span style="color: #51afef;">"files"</span>: {},
+  <span style="color: #51afef;">"form"</span>: {},
+  <span style="color: #51afef;">"headers"</span>: {
+    <span style="color: #51afef;">"Accept"</span>: <span style="color: #98be65;">"*/*"</span>,
+    <span style="color: #51afef;">"Accept-Encoding"</span>: <span style="color: #98be65;">"gzip"</span>,
+    <span style="color: #51afef;">"Content-Length"</span>: "<span style="color: #da8548; font-weight: bold;">149</span>",
+    <span style="color: #51afef;">"Content-Type"</span>: <span style="color: #98be65;">"application/json"</span>,
+    <span style="color: #51afef;">"Extension"</span>: <span style="color: #98be65;">"Security/Digest Security/SSL"</span>,
+    <span style="color: #51afef;">"Host"</span>: <span style="color: #98be65;">"httpbin.org"</span>,
+    <span style="color: #51afef;">"Mime-Version"</span>: "<span style="color: #da8548; font-weight: bold;">1.0</span>",
+    <span style="color: #51afef;">"X-Amzn-Trace-Id"</span>: "Root=<span style="color: #da8548; font-weight: bold;">1</span>-<span style="color: #a9a1e1;">60</span>d<span style="color: #a9a1e1;">207</span>a<span style="color: #a9a1e1;">8</span>-<span style="color: #a9a1e1;">49255</span>b<span style="color: #a9a1e1;">73754</span>efc<span style="color: #a9a1e1;">51271</span>d<span style="color: #a9a1e1;">8537</span>"
+  },
+  <span style="color: #51afef;">"json"</span>: {
+    <span style="color: #51afef;">"fields"</span>: [
+      <span style="color: #98be65;">"summary"</span>,
+      <span style="color: #98be65;">"status"</span>,
+      <span style="color: #98be65;">"assignee"</span>
+    ],
+    <span style="color: #51afef;">"jql"</span>: <span style="color: #98be65;">"project = HSP"</span>,
+    <span style="color: #51afef;">"maxResults"</span>: <span style="color: #da8548; font-weight: bold;">15</span>,
+    <span style="color: #51afef;">"startAt"</span>: <span style="color: #da8548; font-weight: bold;">0</span>
+  },
+  <span style="color: #51afef;">"origin"</span>: "<span style="color: #da8548; font-weight: bold;">190.140</span>.<span style="color: #da8548; font-weight: bold;">132.62</span>",
+  <span style="color: #51afef;">"url"</span>: <span style="color: #98be65;">"http://httpbin.org/post"</span>
+}
+</pre>
+</div>
+
+<p>
+This is <code>jq</code>, in this example just printing the output. Now let&rsquo;s write another
+<code>jq</code> block, this time extracting the contents of the <code>data</code> entry, which
+containins the original payload:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh" id="orgfa39493">jq -r .data
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-json">{
+    <span style="color: #51afef;">"jql"</span>: <span style="color: #98be65;">"project = HSP"</span>,
+    <span style="color: #51afef;">"startAt"</span>: <span style="color: #da8548; font-weight: bold;">0</span>,
+    <span style="color: #51afef;">"maxResults"</span>: <span style="color: #da8548; font-weight: bold;">15</span>,
+    <span style="color: #51afef;">"fields"</span>: [
+        <span style="color: #98be65;">"summary"</span>,
+        <span style="color: #98be65;">"status"</span>,
+        <span style="color: #98be65;">"assignee"</span>
+    ]
+}
+</pre>
+</div>
+
+<p>
+The payload has been unescaped by JQ. Pretty neat. Something that JQ doesn&rsquo;t do?
+No problem, let&rsquo;s pipe that through a short Python function.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #51afef;">import</span> json
+<span style="color: #dcaeea;">data</span> = json.loads(jsondoc)
+<span style="color: #51afef;">print</span>(json.dumps(data, indent=<span style="color: #da8548; font-weight: bold;">4</span>))
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-json">{
+    <span style="color: #51afef;">"jql"</span>: <span style="color: #98be65;">"project = HSP"</span>,
+    <span style="color: #51afef;">"startAt"</span>: <span style="color: #da8548; font-weight: bold;">0</span>,
+    <span style="color: #51afef;">"maxResults"</span>: <span style="color: #da8548; font-weight: bold;">15</span>,
+    <span style="color: #51afef;">"fields"</span>: [
+        <span style="color: #98be65;">"summary"</span>,
+        <span style="color: #98be65;">"status"</span>,
+        <span style="color: #98be65;">"assignee"</span>
+    ]
+}
+</pre>
+</div>
+
+<p>
+It may not be obvious reading this how automated this actually is. The code
+snippets and . None of the output blocks have been manually edited, they can all
+be regenerated from the input, like in a Jupyter notebook. One difference
+between this format and the iPython format is that there isn&rsquo;t really a content
+vs. container format. It&rsquo;s all in a big text file with some markup that still
+looks OK when you read it in plain text.
+</p>
+
+<p>
+If you were to load it in Org mode, you would see nice syntax highting for the
+code in the blocks, and be able to jump into each snippet in a separate window
+to edit with indentation, linting, and documentation.
+</p>
+
+<p>
+The whole thing is completely tied into Emacs: the way it looks, the way it
+evaluates, etc. There are some Org mode implementations for other editors like
+VI and Visual Studio Code, but they typically handle a fraction of the API,
+which is quite extensive. There&rsquo;s no context switch between the editor and the
+document, or between the document the embeddd code snippets. If you invest time
+to get it to work, its rewards are many.
+</p>
+
+<p>
+If you are interested in looking at the soure of this article to see how the
+entire thing was laid out, click here. Turns out github understands Org mode
+just fine.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org07588c9" class="outline-2">
+<h2 id="org07588c9"><span class="section-number-2">4</span> Caching&#xa0;&#xa0;&#xa0;<span class="tag"><span class="ATTACH">ATTACH</span></span></h2>
+<div class="outline-text-2" id="text-4">
+<p>
+Let&rsquo;s keep going with something that would have made the cURL or Postman
+workflow really strain. We will make requests against an API that returns a
+large response. (Large as in lines of text, not as in MB.)
+</p>
+
+<p>
+With such a large payload, we want to see if we can capture it once, and then
+slice and dice it several ways. This is done by enabling caching. The resulting
+header will be like this:
+</p>
+
+<pre class="example" id="org09f5b40">
+#+begin_src restclient :results value drawer :cache yes
+</pre>
+
+<p>
+We&rsquo;re going to want to use this cache in later steps. A footnote here: first,
+the drawer gets in the way of the results parsing. This can be overcome through
+scripting, but the workaround is just to shift the output by 1 line. (More in
+notes section, along with the workaround.)
+</p>
+
+<div class="org-src-container">
+<pre class="src src-restclient" id="org84c1ab4"><span style="color: #51afef;">GET</span> <span style="color: #c678dd;">https://pokeapi.co/api/v2/pokemon-species/25/</span>
+<span style="color: #dcaeea;">Accept</span>: <span style="color: #98be65;">application/json</span>
+</pre>
+</div>
+
+<p>
+The top of the results drawer looks like this:
+</p>
+
+<pre class="example" id="orgcab6adb">
+ :results:
+ #+RESULTS[af90d0f88686fd6432b6b25e0f7764fad2413481]: pokemon-cached
+ {
+   "base_happiness": 70,
+   "capture_rate": 190,
+   "color": {
+     "name": "yellow",
+     "url": "https://pokeapi.co/api/v2/pokemon-color/10/"
+   },
+   ... ~ 4,000 more lines ...
+</pre>
+
+<p>
+But when I collapse it with Emacs, it&rsquo;s unintrusive:
+</p>
+
+
+<div id="orgf1a8d85" class="figure">
+<p><img src="file:///Users/kylepasarelli/org/.attach/05/daf75a-9dfb-4fff-a87c-46e79330c646/_20210621_195727screenshot.png" alt="_20210621_195727screenshot.png" />
+</p>
+</div>
+
+<p>
+It&rsquo;s gone from line 192 to line 4246. That&rsquo;s a pretty big JSON payload.
+How big?
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">wc
+</pre>
+</div>
+
+<pre class="example">
+4051   10049  133247
+</pre>
+
+
+<p>
+Pretty hard to grok the overall structure and contents.
+</p>
+
+<p>
+Now let&rsquo;s have a look at the keys:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">jq <span style="color: #98be65;">'keys'</span>
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-json">[
+  <span style="color: #98be65;">"base_happiness"</span>,
+  <span style="color: #98be65;">"capture_rate"</span>,
+  <span style="color: #98be65;">"color"</span>,
+  <span style="color: #98be65;">"egg_groups"</span>,
+  <span style="color: #98be65;">"evolution_chain"</span>,
+  <span style="color: #98be65;">"evolves_from_species"</span>,
+  <span style="color: #98be65;">"flavor_text_entries"</span>,
+  <span style="color: #98be65;">"form_descriptions"</span>,
+  <span style="color: #98be65;">"forms_switchable"</span>,
+  <span style="color: #98be65;">"gender_rate"</span>,
+  <span style="color: #98be65;">"genera"</span>,
+  <span style="color: #98be65;">"generation"</span>,
+  <span style="color: #98be65;">"growth_rate"</span>,
+  <span style="color: #98be65;">"habitat"</span>,
+  <span style="color: #98be65;">"has_gender_differences"</span>,
+  <span style="color: #98be65;">"hatch_counter"</span>,
+  <span style="color: #98be65;">"id"</span>,
+  <span style="color: #98be65;">"is_baby"</span>,
+  <span style="color: #98be65;">"is_legendary"</span>,
+  <span style="color: #98be65;">"is_mythical"</span>,
+  <span style="color: #98be65;">"name"</span>,
+  <span style="color: #98be65;">"names"</span>,
+  <span style="color: #98be65;">"order"</span>,
+  <span style="color: #98be65;">"pal_park_encounters"</span>,
+  <span style="color: #98be65;">"pokedex_numbers"</span>,
+  <span style="color: #98be65;">"shape"</span>,
+  <span style="color: #98be65;">"varieties"</span>
+]
+</pre>
+</div>
+
+<p>
+This API has some scalars like <code>name</code>, and some lists like <code>names</code>:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">jq <span style="color: #98be65;">'.name'</span>
+</pre>
+</div>
+
+<pre class="example">
+"pikachu"
+</pre>
+
+
+<div class="org-src-container">
+<pre class="src src-sh">jq <span style="color: #98be65;">'.names | length'</span>
+</pre>
+</div>
+
+<pre class="example">
+11
+</pre>
+
+
+<div class="org-src-container">
+<pre class="src src-sh">jq <span style="color: #98be65;">'.names[0]'</span>
+</pre>
+</div>
+
+<pre class="example">
+{
+  "language": {
+    "name": "ja-Hrkt",
+    "url": "https://pokeapi.co/api/v2/language/1/"
+  },
+  "name": "ピカチュウ"
+}
+</pre>
+
+
+<p>
+Now let&rsquo;s try and output all the 11 translations as a table.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">jq -r <span style="color: #98be65;">'.names[] | [.name, (.language | .name, .url)] | @csv'</span>
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-csv">"ピカチュウ","ja-Hrkt","https://pokeapi.co/api/v2/language/1/"
+"Pikachu","roomaji","https://pokeapi.co/api/v2/language/2/"
+"피카츄","ko","https://pokeapi.co/api/v2/language/3/"
+"皮卡丘","zh-Hant","https://pokeapi.co/api/v2/language/4/"
+"Pikachu","fr","https://pokeapi.co/api/v2/language/5/"
+"Pikachu","de","https://pokeapi.co/api/v2/language/6/"
+"Pikachu","es","https://pokeapi.co/api/v2/language/7/"
+"Pikachu","it","https://pokeapi.co/api/v2/language/8/"
+"Pikachu","en","https://pokeapi.co/api/v2/language/9/"
+"ピカチュウ","ja","https://pokeapi.co/api/v2/language/11/"
+"皮卡丘","zh-Hans","https://pokeapi.co/api/v2/language/12/"
+</pre>
+</div>
+
+<p>
+We can also put in headings. Again we&rsquo;re using the cached copy.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">jq -r <span style="color: #98be65;">'["Name", "Language name", "Language URL"], (.names[] | [.name, (.language | .name, .url)]) | @csv'</span>
+</pre>
+</div>
+
+<div class="org" id="orgb8e9609">
+<p>
+&ldquo;Name&rdquo;,&ldquo;Language name&rdquo;,&ldquo;Language URL&rdquo;
+&ldquo;ピカチュウ&rdquo;,&ldquo;ja-Hrkt&rdquo;,&ldquo;<a href="https://pokeapi.co/api/v2/language/1/">https://pokeapi.co/api/v2/language/1/</a>&rdquo;
+&ldquo;Pikachu&rdquo;,&ldquo;roomaji&rdquo;,&ldquo;<a href="https://pokeapi.co/api/v2/language/2/">https://pokeapi.co/api/v2/language/2/</a>&rdquo;
+&ldquo;피카츄&rdquo;,&ldquo;ko&rdquo;,&ldquo;<a href="https://pokeapi.co/api/v2/language/3/">https://pokeapi.co/api/v2/language/3/</a>&rdquo;
+&ldquo;皮卡丘&rdquo;,&ldquo;zh-Hant&rdquo;,&ldquo;<a href="https://pokeapi.co/api/v2/language/4/">https://pokeapi.co/api/v2/language/4/</a>&rdquo;
+&ldquo;Pikachu&rdquo;,&ldquo;fr&rdquo;,&ldquo;<a href="https://pokeapi.co/api/v2/language/5/">https://pokeapi.co/api/v2/language/5/</a>&rdquo;
+&ldquo;Pikachu&rdquo;,&ldquo;de&rdquo;,&ldquo;<a href="https://pokeapi.co/api/v2/language/6/">https://pokeapi.co/api/v2/language/6/</a>&rdquo;
+&ldquo;Pikachu&rdquo;,&ldquo;es&rdquo;,&ldquo;<a href="https://pokeapi.co/api/v2/language/7/">https://pokeapi.co/api/v2/language/7/</a>&rdquo;
+&ldquo;Pikachu&rdquo;,&ldquo;it&rdquo;,&ldquo;<a href="https://pokeapi.co/api/v2/language/8/">https://pokeapi.co/api/v2/language/8/</a>&rdquo;
+&ldquo;Pikachu&rdquo;,&ldquo;en&rdquo;,&ldquo;<a href="https://pokeapi.co/api/v2/language/9/">https://pokeapi.co/api/v2/language/9/</a>&rdquo;
+&ldquo;ピカチュウ&rdquo;,&ldquo;ja&rdquo;,&ldquo;<a href="https://pokeapi.co/api/v2/language/11/">https://pokeapi.co/api/v2/language/11/</a>&rdquo;
+&ldquo;皮卡丘&rdquo;,&ldquo;zh-Hans&rdquo;,&ldquo;<a href="https://pokeapi.co/api/v2/language/12/">https://pokeapi.co/api/v2/language/12/</a>&rdquo;
+</p>
+
+</div>
+
+<p>
+This table has been created directly from the API response. I never had to leave
+the editor, copy &amp; paste data or anything. Similarly, we can have a look at the
+other two collections in the API, for Pokemon varieties and Pokedex numers
+(whatever that is.)
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">jq -r <span style="color: #98be65;">'.varieties[] | [ .pokemon | .name, .url ] | @csv'</span>
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-csv">"pikachu","https://pokeapi.co/api/v2/pokemon/25/"
+"pikachu-rock-star","https://pokeapi.co/api/v2/pokemon/10080/"
+"pikachu-belle","https://pokeapi.co/api/v2/pokemon/10081/"
+"pikachu-pop-star","https://pokeapi.co/api/v2/pokemon/10082/"
+"pikachu-phd","https://pokeapi.co/api/v2/pokemon/10083/"
+"pikachu-libre","https://pokeapi.co/api/v2/pokemon/10084/"
+"pikachu-cosplay","https://pokeapi.co/api/v2/pokemon/10085/"
+"pikachu-original-cap","https://pokeapi.co/api/v2/pokemon/10094/"
+"pikachu-hoenn-cap","https://pokeapi.co/api/v2/pokemon/10095/"
+"pikachu-sinnoh-cap","https://pokeapi.co/api/v2/pokemon/10096/"
+"pikachu-unova-cap","https://pokeapi.co/api/v2/pokemon/10097/"
+"pikachu-kalos-cap","https://pokeapi.co/api/v2/pokemon/10098/"
+"pikachu-alola-cap","https://pokeapi.co/api/v2/pokemon/10099/"
+"pikachu-partner-cap","https://pokeapi.co/api/v2/pokemon/10148/"
+"pikachu-gmax","https://pokeapi.co/api/v2/pokemon/10190/"
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-sh">jq -r <span style="color: #98be65;">'.pokedex_numbers[] | [.entry_number, (.pokedex | .name, .url)] | @csv'</span>
+</pre>
+</div>
+</div>
+
+<div id="outline-container-org27c72ce" class="outline-3">
+<h3 id="org27c72ce"><span class="section-number-3">4.1</span> Org mode hackery</h3>
+<div class="outline-text-3" id="text-4-1">
+<p>
+This is all pretty much out-of-the-box Emacs. Things get a bit more interesting
+when we teach Emacs a few new tricks. Since Babel has support for Emacs Lisp as
+a language, we can define functions in in the document, which when evaluated
+will add to or modify the document. Let&rsquo;s see for example a code block which
+prints the current heading.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp"><span style="color: #51afef;">(</span><span style="color: #c678dd;">org-entry-get</span> nil <span style="color: #98be65;">"ITEM"</span><span style="color: #51afef;">)</span>
+</pre>
+</div>
+
+<pre class="example">
+Org mode hackery
+</pre>
+
+
+<p>
+(As a disclaimer, my elisp-fu is pretty weak, so for sure all of these things can
+be done in a much better way.)
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgf98d644" class="outline-2">
+<h2 id="orgf98d644"><span class="section-number-2">5</span> Multi-step forms</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+Let&rsquo;s use this technique to script an API call with two steps. Here&rsquo;s what we&rsquo;ll do:
+</p>
+
+<p>
+Fist, we&rsquo;ll write a cURL command which does basic authentication against an API
+and returns a token. Then we&rsquo;ll use elisp to store that token in a hidden field
+in the document. Finally, in a second call, we will use the stored token and
+send it using restclient to another API.
+</p>
+
+<p>
+This is the elisp to save the login to a header argument. This is the
+<code>save-login</code> function:
+</p>
+
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listing 1: </span>save-login function</label><pre class="src src-elisp" id="orgd762e53"><span style="color: #51afef;">(</span><span style="color: #c678dd;">org-set-property</span> <span style="color: #98be65;">"header-args+"</span> <span style="color: #c678dd;">(</span><span style="color: #a9a1e1;">concat</span> <span style="color: #98be65;">":var token="</span> <span style="color: #98be65;">(</span><span style="color: #c678dd;">json-encode</span> <span style="color: #da8548;">(</span><span style="color: #c678dd;">chomp</span> token<span style="color: #da8548;">)</span><span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
+</pre>
+</div>
+
+<p>
+We will explain how to get the <code>token</code> variable in a bit. The &ldquo;chomp&rdquo; function
+is from the Emacs lisp cookbook. Similar to the one in Perl, it removes leading
+and trailing whitespace. More in the notes section.
+</p>
+
+<p>
+The &ldquo;save-login&rdquo; function gets a token and saves it in a &ldquo;header argument&rdquo; with
+this format:
+</p>
+
+<pre class="example" id="orgb5534a8">
+ :header-args+: :var token="3af41..."
+</pre>
+
+<p>
+If you&rsquo;re not into Emacs (yet), the details won&rsquo;t make much sense. Let&rsquo;s just
+say that this header argument is what will let you recall the token later on.
+</p>
+
+<p>
+Now we need the actual API calls to do the login:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-shell" id="orgce9f227"><span style="color: #ECBE7B;">curl</span> -u <span style="color: #98be65;">"someapplication:password"</span> <span style="color: #98be65;">\</span>
+    -X GET <span style="color: #98be65;">"http://httpbin.org/basic-auth/someapplication/password"</span> <span style="color: #98be65;">\</span>
+    -H <span style="color: #98be65;">"accept: application/json"</span>
+</pre>
+</div>
+
+<pre class="example">
+{
+  "authenticated": true, 
+  "user": "someapplication"
+}
+</pre>
+
+
+<p>
+For now, let&rsquo;s assume we got a token back from the API. We call
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh" id="org27bb8ae">jq <span style="color: #98be65;">'.user'</span> | base64
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-example">#+RESULTS: token
+: InNvbWVhcHBsaWNhdGlvbiIK
+</pre>
+</div>
+
+<p>
+Now we call
+</p>
+
+<div class="org-src-container">
+<pre class="src src-example">#+call: save-login :var token=token
+</pre>
+</div>
+
+<p>
+The header argument of this article (notebook?) now contians a property.
+</p>
+
+<pre class="example" id="org79111ce">
+ ** Multi-step forms
+ :PROPERTIES:
+ :header-args+: :var token="InNvbWVhcHBsaWNhdGlvbiIK"
+ :END:
+</pre>
+
+<p>
+What does that give us? Well, anything else in this part of the document will be
+able to use the token by just referring to it. Let&rsquo;s pretend we&rsquo;re giving it to
+another API call via REST Client, by placing it in an HTTP header.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-restclient" id="org238e041"><span style="color: #51afef;">GET</span> <span style="color: #c678dd;">https://httpbin.org/bearer</span>
+<span style="color: #dcaeea;">accept</span>: <span style="color: #98be65;">application/json</span>
+<span style="color: #dcaeea;">Authorization</span>: <span style="color: #98be65;">Bearer :token</span>
+</pre>
+</div>
+
+<p>
+#+BEGIN<sub>SRC</sub> js
+{
+  &ldquo;authenticated&rdquo;: true,
+  &ldquo;token&rdquo;: &ldquo;InNvbWVhcHBsaWNhdGlvbiIK&rdquo;
+}
+</p>
+
+<p>
+The token has been passed from one call to the next! Why is this interesting?
+Well, we can evaluate every code block in this document, and then have
+publishable article with all of the tables, plots (if we had them), recomputed
+and inserted back int o the doc. Kind of like a data science notebook, but where
+(1) everything is hackable, and (2) there is no separation between content +
+tool + markup, as there is with a Jupyter notebook or similar. It&rsquo;s all plain
+text and elisp.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org92c87dd" class="outline-2">
+<h2 id="org92c87dd"><span class="section-number-2">6</span> Export</h2>
+<div class="outline-text-2" id="text-6">
+<p>
+There&rsquo;s a command in restclient, <code>restclient-copy-curl-command</code>, to generate a
+cURL command from the restclient code and copy the cURL command to the
+clipboard. we will add some code here to to to the last command, copy the code,
+and then paste it below. (More as a demo of how flexible this scripting can
+get.)
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp" id="org343ba48"><span style="color: #51afef;">(</span><span style="color: #51afef;">org-with-wide-buffer</span>
+ <span style="color: #c678dd;">(</span><span style="color: #c678dd;">org-babel-goto-named-src-block</span> <span style="color: #98be65;">"bearer-token"</span><span style="color: #c678dd;">)</span>
+ <span style="color: #c678dd;">(</span><span style="color: #c678dd;">restclient-copy-curl-command</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
+<span style="color: #51afef;">(</span><span style="color: #c678dd;">org-babel-goto-named-result</span> <span style="color: #98be65;">"curl"</span><span style="color: #51afef;">)</span>
+<span style="color: #51afef;">(</span><span style="color: #c678dd;">org-insert-structure-template</span> <span style="color: #98be65;">"src"</span><span style="color: #51afef;">)</span>
+<span style="color: #51afef;">(</span><span style="color: #a9a1e1;">insert</span> <span style="color: #98be65;">"sh :results output :var token=token\n"</span><span style="color: #51afef;">)</span>
+<span style="color: #51afef;">(</span><span style="color: #a9a1e1;">insert</span> <span style="color: #c678dd;">(</span><span style="color: #a9a1e1;">car</span> <span style="color: #dcaeea;">kill-ring-yank-pointer</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
+</pre>
+</div>
+
+<p>
+It inserted this, which I modified only slightly, replacing <code>token</code> with
+<code>$token</code>, and then ran:
+</p>
+
+<pre class="example" id="org04d8474">
+HTTP/2 200 
+date: Tue, 22 Jun 2021 02:47:53 GMT
+content-type: application/json
+content-length: 68
+server: gunicorn/19.9.0
+access-control-allow-origin: *
+access-control-allow-credentials: true
+
+{
+  "authenticated": true,
+  "token": "InNvbWVhcHBsaWNhdGlvbiIK"
+}
+</pre>
+
+<p>
+It&rsquo;s easy to get carried away, hacking APIs, responses, and the editor all at
+the same time and in the same document. Starting in this document, the Lisp and
+other code can take their separate paths: Lisp to go into a function bound to a
+key, so that I can use it in any document I like; the REST client an JQ code
+could be exported to Python or another programming language, so that I could
+put them in production.
+</p>
+
+<p>
+Would I recommend it in terms of strict productivity? Perhaps not; it takes a
+little while to get started. Is it hella fun and kind of addictive? yes.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org3d637d6" class="outline-2">
+<h2 id="org3d637d6"><span class="section-number-2">7</span> Next steps</h2>
+<div class="outline-text-2" id="text-7">
+<p>
+There are several ways this could be improved:
+</p>
+
+<ul class="org-ul">
+<li>We could have have elisp understand the <code>jq</code> syntax, so that table headings
+are automatically inserted by reading the filter.</li>
+
+<li>We could ensure all steps are idempotent, including cleaning up cached data.
+They <b>mostly</b> are right now, but there are a few exceptions.</li>
+
+<li>We could add an export function to other languages like Python or Go. This
+export function could even take into account the JQ filters in subsequent
+blocks, so that we have both the calling and filtering code available.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org455f1f5" class="outline-2">
+<h2 id="org455f1f5"><span class="section-number-2">8</span> Conclusions</h2>
+<div class="outline-text-2" id="text-8">
+<p>
+There are a few interesting qualities about this approach for me. The first is
+homoiconicity. This is the often touted description of lisp languages, and is
+supposed to refer to the symmetry betwen the program&rsquo;s code and the data that it
+operates on. For lisps, since the code is a bunch of lists, and the data
+structures are also bunch of lists. This is supposed to unleash some real
+economies of scale when it comes to code re-use. Or something like that.
+</p>
+
+<p>
+From the poitn of view of these exercises, you might say there&rsquo;s a certain more
+pedestrian form of homoiconicity at play. The document itself is the srouce, the
+intermediate data store, and the target. The document contains the code that
+can further modify the document. Maybe not so pedestrian after all.
+</p>
+
+<p>
+Given the pretty excellent support for domain specific langauges like
+Restclient, and also really good integration for subshells, it&rsquo;s possible to
+create arbitrarily complex workflows right in one document that do real work in
+the outside world (gasp - outside the document!) all in the flow of text. This
+is why this is super-squarely in the world of literate programming. Donald Knuth
+would be proud.
+</p>
+
+<p>
+Lisp is supposed to be one of those programming languages that you learn in
+order to become better at other, real, productive programming languages. In
+Emacs, it is just a very practical and very well documented construct that can
+be chained up however and wherever. It doesn&rsquo;t produce the fastest code, but
+it&rsquo;s endlessly flexible. It was not evident how much this was the case until
+working ont hese exercises.
+</p>
+
+<p>
+I hope this article gave you a taster of what is possible if you choose to brave
+the world of many parens. and having that &ldquo;fits-like-a-glove environment.&rdquo;
+</p>
+</div>
+</div>
+<div id="outline-container-org43ffb18" class="outline-2">
+<h2 id="org43ffb18"><span class="section-number-2">9</span> References</h2>
+<div class="outline-text-2" id="text-9">
+<p>
+restclient: <a href="https://github.com/pashky/restclient.el">https://github.com/pashky/restclient.el</a>
+org-babel: <a href="https://orgmode.org/worg/org-contrib/babel/">https://orgmode.org/worg/org-contrib/babel/</a>
+elisp-cookbook: <a href="https://www.emacswiki.org/emacs/ElispCookbook">https://www.emacswiki.org/emacs/ElispCookbook</a>
+auth0 examples: <a href="https://auth0.com/docs/connections/generic-oauth2-connection-examples">https://auth0.com/docs/connections/generic-oauth2-connection-examples</a>
+ceo-emacs: <a href="https://www.fugue.co/blog/2015-11-11-guide-to-emacs.html">https://www.fugue.co/blog/2015-11-11-guide-to-emacs.html</a>
+</p>
+</div>
+</div>
+
+<div id="outline-container-org2dd7083" class="outline-2">
+<h2 id="org2dd7083"><span class="section-number-2">10</span> Notes</h2>
+<div class="outline-text-2" id="text-10">
+</div>
+<div id="outline-container-org022973b" class="outline-4">
+<h4 id="org022973b"><span class="section-number-4">10.0.1</span> Chomp function</h4>
+<div class="outline-text-4" id="text-10-0-1">
+<div class="org-src-container">
+<pre class="src src-elisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">defun</span> <span style="color: #c678dd;">chomp</span> <span style="color: #c678dd;">(</span>str<span style="color: #c678dd;">)</span>
+    <span style="color: #83898d;">"Chomp leading and tailing whitespace from STR."</span>
+    <span style="color: #c678dd;">(</span><span style="color: #51afef;">while</span> <span style="color: #98be65;">(</span><span style="color: #a9a1e1;">string-match</span> <span style="color: #98be65;">"\\`</span><span style="color: #a9a1e1;">\n+</span><span style="color: #51afef; font-weight: bold;">\\</span><span style="color: #51afef; font-weight: bold;">|</span><span style="color: #a9a1e1;">^\\s-+</span><span style="color: #51afef; font-weight: bold;">\\</span><span style="color: #51afef; font-weight: bold;">|</span><span style="color: #a9a1e1;">\\s-+$</span><span style="color: #51afef; font-weight: bold;">\\</span><span style="color: #51afef; font-weight: bold;">|</span><span style="color: #a9a1e1;">\n+\\</span><span style="color: #98be65;">'"</span>
+                         str<span style="color: #98be65;">)</span>
+      <span style="color: #98be65;">(</span><span style="color: #51afef;">setq</span> str <span style="color: #da8548;">(</span><span style="color: #a9a1e1;">replace-match</span> <span style="color: #98be65;">""</span> t t str<span style="color: #da8548;">)</span><span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span>
+    str<span style="color: #51afef;">)</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Kyle S Passarelli</p>
+<p class="date">Created: 2021-06-22 Tue 10:54</p>
+</div>
+</body>
+</html>
